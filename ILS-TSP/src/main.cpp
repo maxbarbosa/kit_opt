@@ -1,27 +1,28 @@
 #include "data.h"
-#include <iostream>
+#include "solucao.h"
+#include "construcao.h"
 
-using namespace std;
+double **matrizAdj; // matriz de adjacência
+int dimensao; // quantidade total de vértices
 
 int main(int argc, char** argv) {
-    auto data = Data(argc, argv[1]);
-    data.read();
-    size_t n = data.getDimension();
+    srand(time(NULL));
+    Data(argc, argv, &dimensao, &matrizAdj);
 
-    cout << "Dimension: " << n << endl;
-    cout << "DistanceMatrix: " << endl;
-    data.printMatrixDist();
-
-
-    cout << "Exemplo de Solucao s = ";
-    double cost = 0.0;
-    for (size_t i = 1; i < n; i++) {
-        cout << i << " -> ";
-        cost += data.getDistance(i, i+1);
+    /*
+    for(int i = 1; i <= dimensao; i++){
+        for(int j = 1; j <= dimensao; j++){
+            cout << matrizAdj[i][j] << " ";
+        }
+        cout << endl;
     }
-    cost += data.getDistance(n, 1);
-    cout << n << " -> " << 1 << endl;
-    cout << "Custo de S: " << cost << endl;
+    */
+
+    Solucao s = Construcao();
+
+    calcularValorObj(s);
+
+    exibirSolucao(s);
 
     return 0;
 }
